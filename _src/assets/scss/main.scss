@@ -6,17 +6,11 @@ body {
 }
 
 .container__show {
+  color: blueviolet;
   background-color: pink;
 }
 
-.title__show {
-  color: blueviolet;
-}
-
 .container__show-selected {
-  background-color: blueviolet;
-}
-
-.title__show-selected {
   color: pink;
+  background-color: blueviolet;
 }

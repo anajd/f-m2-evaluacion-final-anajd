@@ -3,6 +3,8 @@
 const searchInput = document.querySelector('.search__input');
 const searchButton = document.querySelector('.search__button');
 const resultList = document.querySelector('.result__list');
+const favList = document.querySelector('.fav__list');
+let arrFav = [];
 const imageSust = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
 const api = 'http://api.tvmaze.com/search/shows?q=';
 
@@ -14,6 +16,7 @@ const showClick = () => {
     fetch(url)
       .then(response => response.json())
       .then(data => {
+        resultList.innerHTML = '';
         for (let i = 0; i < data.length; i++) {
           const containerShow = document.createElement('li');
           containerShow.classList.add('container__show');
@@ -38,21 +41,48 @@ const showClick = () => {
 
           resultList.appendChild(containerShow);
 
-          const handlElementClick = event => {
-            const selectedBackgorund = event.currentTarget;
-            const slectedText = event.currentTarget.querySelector(
-              '.title__show'
-            );
-            selectedBackgorund.classList.toggle('container__show-selected');
-            slectedText.classList.toggle('title__show-selected');
-          };
-          containerShow.addEventListener('click', handlElementClick);
-          titleShow.addEventListener('click', handlElementClick);
+          //   containerShow.addEventListener('click', handlElementClick);
+          //   titleShow.addEventListener('click', handlElementClick);
+          containerShow.addEventListener('click', function(event) {
+            favoriteShow(event, titleShow, imageShow);
+          });
         }
       });
   };
 
   fetchShows(url);
 };
+
+function favoriteShow(event, name, image) {
+  const trigger = event.currentTarget;
+  trigger.classList.toggle('container__show-selected');
+
+  const objectFav = {};
+  objectFav.name = `${name.innerHTML}`;
+  objectFav.image = `${image.src}`;
+
+  if (trigger.classList.contains('container__show-selected')) {
+    arrFav.push(objectFav);
+  }
+  console.log(arrFav);
+
+  const containerShowFav = document.createElement('li');
+  containerShowFav.classList.add('container__show-fav');
+  const titleShowFav = document.createElement('h2');
+  titleShowFav.classList.add('title__show-fav');
+  const imageShowFav = document.createElement('img');
+  imageShowFav.classList.add('image__show-fav');
+  imageShowFav.src = objectFav.image;
+  imageShowFav.alt = objectFav.name;
+
+  const titleShowContentFav = document.createTextNode(objectFav.name);
+
+  titleShowFav.appendChild(titleShowContentFav);
+
+  containerShowFav.appendChild(imageShowFav);
+  containerShowFav.appendChild(titleShowFav);
+
+  favList.appendChild(containerShowFav);
+}
 
 searchButton.addEventListener('click', showClick);
