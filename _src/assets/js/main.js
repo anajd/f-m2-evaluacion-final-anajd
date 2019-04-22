@@ -37,6 +37,17 @@ const showClick = () => {
           containerShow.appendChild(titleShow);
 
           resultList.appendChild(containerShow);
+
+          const handlElementClick = event => {
+            const selectedBackgorund = event.currentTarget;
+            const slectedText = event.currentTarget.querySelector(
+              '.title__show'
+            );
+            selectedBackgorund.classList.toggle('container__show-selected');
+            slectedText.classList.toggle('title__show-selected');
+          };
+          containerShow.addEventListener('click', handlElementClick);
+          titleShow.addEventListener('click', handlElementClick);
         }
       });
   };
