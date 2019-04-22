@@ -4,9 +4,15 @@ const searchInput = document.querySelector('.search__input');
 const searchButton = document.querySelector('.search__button');
 const resultList = document.querySelector('.result__list');
 const favList = document.querySelector('.fav__list');
+const resetButton = document.querySelector('.reset__button');
 let arrFav = [];
 const imageSust = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
 const api = 'http://api.tvmaze.com/search/shows?q=';
+
+if (getData() !== null) {
+  arrFav = getData();
+  refresh();
+}
 
 const showClick = () => {
   const term = searchInput.value;
@@ -45,6 +51,7 @@ const showClick = () => {
           //   titleShow.addEventListener('click', handlElementClick);
           containerShow.addEventListener('click', function(event) {
             favoriteShow(event, titleShow, imageShow);
+            // saveData();
           });
         }
       });
@@ -62,27 +69,94 @@ function favoriteShow(event, name, image) {
   objectFav.image = `${image.src}`;
 
   if (trigger.classList.contains('container__show-selected')) {
-    arrFav.push(objectFav);
+    let duplicatedObj = arrFav.findBy('name', `${name.innerHTML}`); // Busca si la pelicula está en el array
+    if (duplicatedObj === undefined || duplicatedObj === null) {
+      arrFav.push(objectFav); // Si no está se añade
+      refresh();
+    }
+  } else {
+    let eliminatedItem = arrFav.findBy('name', `${name.innerHTML}`); // Busca la película a eliminar
+    quit(eliminatedItem); // Elimina la pelicula del array
+    refresh();
   }
+
   console.log(arrFav);
+}
 
-  const containerShowFav = document.createElement('li');
-  containerShowFav.classList.add('container__show-fav');
-  const titleShowFav = document.createElement('h2');
-  titleShowFav.classList.add('title__show-fav');
-  const imageShowFav = document.createElement('img');
-  imageShowFav.classList.add('image__show-fav');
-  imageShowFav.src = objectFav.image;
-  imageShowFav.alt = objectFav.name;
+Array.prototype.findBy = function(key, value) {
+  // Devolverá el objeto que coincida con key-value indicados como argumentos de la función
+  for (let i = 0; i < this.length; i++) {
+    let object = this[i];
+    if (key in object && object[key] === value) {
+      return object;
+    }
+  }
+  return null;
+  // Devolverá null en caso de no hallar coincidencia, en caso contrario devolverá el objeto coincidente
+};
 
-  const titleShowContentFav = document.createTextNode(objectFav.name);
+function quit(obj) {
+  let index = arrFav.indexOf(obj); // Devuelve la posicion del objeto en el array
+  if (index !== -1) {
+    // Si devuelve -1 el objeto no existe en el array
+    arrFav.splice(index, 1);
+  }
+}
 
-  titleShowFav.appendChild(titleShowContentFav);
+function refresh() {
+  favList.innerHTML = '';
+  for (let i = 0; i < arrFav.length; i++) {
+    const containerShowFav = document.createElement('li');
+    containerShowFav.classList.add('container__show-fav');
+    const titleShowFav = document.createElement('h3');
+    titleShowFav.classList.add('title__show-fav');
+    const imageShowFav = document.createElement('img');
+    imageShowFav.classList.add('image__show-fav');
+    imageShowFav.src = arrFav[i].image;
+    imageShowFav.alt = arrFav[i].name;
 
-  containerShowFav.appendChild(imageShowFav);
-  containerShowFav.appendChild(titleShowFav);
+    const titleShowContentFav = document.createTextNode(arrFav[i].name);
 
-  favList.appendChild(containerShowFav);
+    titleShowFav.appendChild(titleShowContentFav);
+    addIcon(titleShowFav, arrFav[i].name);
+    containerShowFav.appendChild(imageShowFav);
+    containerShowFav.appendChild(titleShowFav);
+
+    favList.appendChild(containerShowFav);
+  }
+  saveData();
+}
+
+function addIcon(element, name) {
+  const icon = document.createElement('i');
+  icon.classList.add('fas', 'fa-times-circle');
+  element.appendChild(icon);
+  icon.addEventListener('click', function quitFav() {
+    console.log('noooo');
+    console.log(name);
+    let eliminateFav = arrFav.findBy('name', name);
+    quit(eliminateFav);
+    refresh();
+  });
+}
+
+function saveData() {
+  localStorage.setItem('arrFav', JSON.stringify(arrFav));
+}
+
+function getData() {
+  return JSON.parse(localStorage.getItem('arrFav'));
+}
+
+function quitAll() {
+  arrFav = [];
+  refresh();
 }
 
 searchButton.addEventListener('click', showClick);
+searchInput.addEventListener('keyup', function(e) {
+  if (e.keyCode === 13) {
+    showClick();
+  }
+});
+resetButton.addEventListener('click', quitAll);
