@@ -29,6 +29,8 @@ const fetchShows = url => {
         const containerShow = document.createElement('li');
         containerShow.classList.add('container__show');
 
+        const idShow = data[i].show.id;
+
         const titleShow = document.createElement('h2');
         titleShow.classList.add('title__show');
         const titleShowContent = document.createTextNode(data[i].show.name);
@@ -50,28 +52,29 @@ const fetchShows = url => {
         resultList.appendChild(containerShow);
 
         containerShow.addEventListener('click', function(event) {
-          favoriteShow(event, titleShow, imageShow);
+          favoriteShow(event, idShow, titleShow, imageShow);
         });
       }
     });
 };
 
-function favoriteShow(event, name, image) {
+function favoriteShow(event, id, name, image) {
   const trigger = event.currentTarget;
   trigger.classList.toggle('container__show-selected');
 
   const objectFav = {};
+  objectFav.id = `${id}`;
   objectFav.name = `${name.innerHTML}`;
   objectFav.image = `${image.src}`;
 
   if (trigger.classList.contains('container__show-selected')) {
-    let duplicatedObj = arrFav.findBy('name', `${name.innerHTML}`); // Busca si la pelicula está en el array
+    let duplicatedObj = arrFav.findBy('id', `${id}`); // Busca si la pelicula está en el array
     if (duplicatedObj === undefined || duplicatedObj === null) {
       arrFav.push(objectFav); // Si no está se añade
       refresh();
     }
   } else {
-    let eliminatedItem = arrFav.findBy('name', `${name.innerHTML}`); // Busca la película a eliminar
+    let eliminatedItem = arrFav.findBy('id', `${id}`); // Busca la película a eliminar
     quit(eliminatedItem); // Elimina la pelicula del array
     refresh();
   }
