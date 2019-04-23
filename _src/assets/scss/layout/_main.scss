@@ -1,5 +1,18 @@
 .wrapper {
   padding: rem(50) rem(80);
+  display: grid;
+  grid-gap: rem(10);
+  grid-template-columns: repeat(auto-fill, rem(140));
+  .search__form {
+    grid-column: 1 / 5;
+  }
+  .result__list {
+    grid-column: 3 / 4;
+  }
+  .fav__container {
+    grid-column: 1 / 4;
+    grid-row: auto;
+  }
 }
 
 // Search section
@@ -8,21 +21,28 @@
   color: $color-white;
   padding-bottom: rem(20);
 }
-.search__input {
-  padding: rem(2) rem(30);
-}
-.search__button {
-  color: $color-white;
-  font-family: $raleway;
-  font-size: rem(15);
-  font-weight: bold;
-  text-transform: uppercase;
-  background-color: $color-blue;
-  letter-spacing: rem(1);
-  padding: rem(7);
-  border: none;
-  border-radius: 5%;
-  margin-left: rem(10);
+.search__container {
+  display: flex;
+  align-self: center;
+  .search__input {
+    padding: rem(5) rem(10);
+    width: rem(200);
+    font-family: $raleway;
+    color: $color-grey;
+  }
+  .search__button {
+    color: $color-white;
+    font-family: $raleway;
+    font-size: rem(15);
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: $color-blue;
+    letter-spacing: rem(1);
+    padding: rem(7);
+    border: none;
+    border-radius: 5%;
+    margin-left: rem(10);
+  }
 }
 
 // Favorite section
@@ -54,14 +74,14 @@
 }
 .fav__list {
   list-style: none;
-  display: flex;
   .container__show-fav {
     margin-right: rem(10);
-    display: flex;
-    flex-direction: row;
-    @include titleFavStyle;
+    display: grid;
+    grid-template-columns: rem(80) auto;
+    grid-gap: rem(30);
+    margin-bottom: rem(20);
     .title__show-fav {
-      margin-left: rem(30);
+      @include titleFavStyle;
       .fas {
         margin-left: rem(30);
       }
@@ -69,5 +89,31 @@
     .image__show-fav {
       width: rem(80);
     }
+  }
+}
+
+// Result section
+.result__container {
+  margin: rem(50);
+}
+.result__list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: rem(30);
+  .container__show {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: rem(10);
+    color: $color-white;
+    background-color: $color-black;
+    .title__show {
+      @include titleStyle;
+      padding: rem(10) 0;
+    }
+  }
+  .container__show-selected {
+    background-color: $color-blue;
   }
 }
