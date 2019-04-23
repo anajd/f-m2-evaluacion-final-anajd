@@ -1,0 +1,13 @@
+.title__page {
+  font-family: $raleway;
+  font-size: rem(45);
+  color: $color-white;
+  text-transform: capitalize;
+  width: 100vw;
+  text-align: center;
+  padding-top: rem(50);
+
+  .fas {
+    font-size: rem(35);
+  }
+}

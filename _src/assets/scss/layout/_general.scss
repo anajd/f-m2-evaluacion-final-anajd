@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: rem($defaultFontSize);
+  color: $color-white;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $raleway;
+  background: $color-black;
+  min-height: 100vh;
+}

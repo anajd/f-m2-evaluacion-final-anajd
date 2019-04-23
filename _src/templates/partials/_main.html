@@ -1,18 +1,27 @@
-<h2 class="search__title">Buscador de series</h2>
-<div class="search__form">
-  <label for="search__input"></label>
-  <input
-    type="text"
-    id="search__input"
-    class="search__input"
-    placeholder="Título"
-  />
-  <button type="submit" class="search__button">Search</button>
-</div>
-<button type="submit" class="reset__button">Reset</button>
-<div class="fav__container">
-  <ul class="fav__list"></ul>
-</div>
-<div class="result__container">
-  <ul class="result__list"></ul>
-</div>
+<main class="page__main">
+  <div class="wrapper">
+    <section class="search__form">
+      <h2 class="search__title">Buscador de series</h2>
+      <label for="search__input"></label>
+      <input
+        type="text"
+        id="search__input"
+        class="search__input"
+        placeholder="Título de la serie"
+      />
+      <button type="submit" class="search__button">Search</button>
+    </section>
+    <section class="fav__container">
+      <div class="reset">
+        <h3 class="fav__title">Mis series favoritas</h3>
+        <button type="submit" class="reset__button">
+          Reset <i class="fas fa-recycle"></i>
+        </button>
+      </div>
+      <ul class="fav__list"></ul>
+    </section>
+    <section class="result__container">
+      <ul class="result__list"></ul>
+    </section>
+  </div>
+</main>

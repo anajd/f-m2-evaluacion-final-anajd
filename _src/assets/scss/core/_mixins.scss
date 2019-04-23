@@ -1,0 +1,9 @@
+@mixin titleFavStyle {
+  font-family: $roboto;
+  font-size: rem(13);
+  color: $color-white;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}

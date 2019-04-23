@@ -1,0 +1,73 @@
+.wrapper {
+  padding: rem(50) rem(80);
+}
+
+// Search section
+.search__title {
+  font-family: $raleway;
+  color: $color-white;
+  padding-bottom: rem(20);
+}
+.search__input {
+  padding: rem(2) rem(30);
+}
+.search__button {
+  color: $color-white;
+  font-family: $raleway;
+  font-size: rem(15);
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: $color-blue;
+  letter-spacing: rem(1);
+  padding: rem(7);
+  border: none;
+  border-radius: 5%;
+  margin-left: rem(10);
+}
+
+// Favorite section
+.fav__container {
+  margin: rem(50);
+  padding-right: rem(20);
+  border-right: rem(1) solid $color-grey;
+  display: inline-block;
+}
+.reset {
+  display: flex;
+  margin-bottom: rem(30);
+}
+.fav__title {
+  color: $color-white;
+  font-family: $raleway;
+  font-weight: normal;
+}
+.reset__button {
+  color: $color-black;
+  font-family: $raleway;
+  text-transform: uppercase;
+  background-color: $color-grey;
+  letter-spacing: rem(1);
+  padding: rem(5);
+  border: none;
+  border-radius: 5%;
+  margin-left: rem(70);
+}
+.fav__list {
+  list-style: none;
+  display: flex;
+  .container__show-fav {
+    margin-right: rem(10);
+    display: flex;
+    flex-direction: row;
+    @include titleFavStyle;
+    .title__show-fav {
+      margin-left: rem(30);
+      .fas {
+        margin-left: rem(30);
+      }
+    }
+    .image__show-fav {
+      width: rem(80);
+    }
+  }
+}
