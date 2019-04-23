@@ -99,7 +99,6 @@ function quit(obj) {
   if (index !== -1) {
     // Si devuelve -1 el objeto no existe en el array
     arrFav.splice(index, 1);
-    console.log(arrFav);
   }
 }
 
