@@ -1,0 +1,27 @@
+.search__title {
+  font-family: $raleway;
+  color: $color-white;
+  padding-bottom: rem(20);
+}
+.search__container {
+  display: flex;
+  align-self: center;
+  .search__input {
+    padding: rem(5) rem(10);
+    width: rem(200);
+    font-family: $raleway;
+  }
+  .search__button {
+    color: $color-white;
+    font-family: $raleway;
+    font-size: rem(15);
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: $color-blue;
+    letter-spacing: rem(1);
+    padding: rem(7);
+    border: none;
+    border-radius: 5%;
+    margin-left: rem(10);
+  }
+}

@@ -1,4 +1,4 @@
-.title__page {
+.container__title-page {
   font-family: $raleway;
   font-size: rem(45);
   color: $color-white;
@@ -6,8 +6,9 @@
   width: 100vw;
   text-align: center;
   padding-top: rem(50);
-
+  display: flex;
+  justify-content: center;
   .fas {
-    font-size: rem(35);
+    font-size: rem(40);
   }
 }
