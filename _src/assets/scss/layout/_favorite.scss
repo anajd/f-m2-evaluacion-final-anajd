@@ -23,6 +23,7 @@
   border: none;
   border-radius: 5%;
   margin-left: rem(70);
+  cursor: pointer;
 }
 .fav__list {
   list-style: none;
@@ -36,6 +37,7 @@
       @include titleFavStyle;
       .fas {
         margin-left: rem(30);
+        cursor: pointer;
       }
     }
     .image__show-fav {
