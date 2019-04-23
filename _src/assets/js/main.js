@@ -17,47 +17,43 @@ if (getData() !== null) {
 const showClick = () => {
   const term = searchInput.value;
   const url = api + term;
-
-  const fetchShows = url => {
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        resultList.innerHTML = '';
-        for (let i = 0; i < data.length; i++) {
-          const containerShow = document.createElement('li');
-          containerShow.classList.add('container__show');
-          const titleShow = document.createElement('h2');
-          titleShow.classList.add('title__show');
-          const imageShow = document.createElement('img');
-          imageShow.classList.add('image__show');
-          const dataImg = data[i].show.image;
-          if (dataImg === null) {
-            imageShow.src = imageSust;
-          } else {
-            imageShow.src = dataImg.medium;
-          }
-          imageShow.alt = data[i].show.name;
-
-          const titleShowContent = document.createTextNode(data[i].show.name);
-
-          titleShow.appendChild(titleShowContent);
-
-          containerShow.appendChild(imageShow);
-          containerShow.appendChild(titleShow);
-
-          resultList.appendChild(containerShow);
-
-          //   containerShow.addEventListener('click', handlElementClick);
-          //   titleShow.addEventListener('click', handlElementClick);
-          containerShow.addEventListener('click', function(event) {
-            favoriteShow(event, titleShow, imageShow);
-            // saveData();
-          });
-        }
-      });
-  };
-
   fetchShows(url);
+};
+
+const fetchShows = url => {
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      resultList.innerHTML = '';
+      for (let i = 0; i < data.length; i++) {
+        const containerShow = document.createElement('li');
+        containerShow.classList.add('container__show');
+
+        const titleShow = document.createElement('h2');
+        titleShow.classList.add('title__show');
+        const titleShowContent = document.createTextNode(data[i].show.name);
+        titleShow.appendChild(titleShowContent);
+
+        const imageShow = document.createElement('img');
+        imageShow.classList.add('image__show');
+        const dataImg = data[i].show.image;
+        if (dataImg === null) {
+          imageShow.src = imageSust;
+        } else {
+          imageShow.src = dataImg.medium;
+        }
+        imageShow.alt = data[i].show.name;
+
+        containerShow.appendChild(imageShow);
+        containerShow.appendChild(titleShow);
+
+        resultList.appendChild(containerShow);
+
+        containerShow.addEventListener('click', function(event) {
+          favoriteShow(event, titleShow, imageShow);
+        });
+      }
+    });
 };
 
 function favoriteShow(event, name, image) {
@@ -100,6 +96,7 @@ function quit(obj) {
   if (index !== -1) {
     // Si devuelve -1 el objeto no existe en el array
     arrFav.splice(index, 1);
+    console.log(arrFav);
   }
 }
 
@@ -132,8 +129,6 @@ function addIcon(element, name) {
   icon.classList.add('fas', 'fa-times-circle');
   element.appendChild(icon);
   icon.addEventListener('click', function quitFav() {
-    console.log('noooo');
-    console.log(name);
     let eliminateFav = arrFav.findBy('name', name);
     quit(eliminateFav);
     refresh();
@@ -148,15 +143,13 @@ function getData() {
   return JSON.parse(localStorage.getItem('arrFav'));
 }
 
-function quitAll() {
-  arrFav = [];
-  refresh();
-}
-
 searchButton.addEventListener('click', showClick);
 searchInput.addEventListener('keyup', function(e) {
   if (e.keyCode === 13) {
     showClick();
   }
 });
-resetButton.addEventListener('click', quitAll);
+resetButton.addEventListener('click', () => {
+  arrFav = [];
+  refresh();
+});
